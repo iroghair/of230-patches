@@ -1,0 +1,156 @@
+--- ../temp/OpenFOAM-2.3.0/applications/utilities/mesh/conversion/ansysToFoam/ansysToFoam.L
++++ applications/utilities/mesh/conversion/ansysToFoam/ansysToFoam.L
+@@ -77,11 +77,11 @@
+ // Dummy yywrap to keep yylex happy at compile time.
+ // It is called by yylex but is not used as the mechanism to change file.
+ // See <<EOF>>
+-#if YY_FLEX_SUBMINOR_VERSION < 34
+-extern "C" int yywrap()
+-#else
++//#if YY_FLEX_SUBMINOR_VERSION < 34
++//extern "C" int yywrap()
++//#else
+ int yyFlexLexer::yywrap()
+-#endif
++//#endif
+ {
+     return 1;
+ }
+--- ../temp/OpenFOAM-2.3.0/applications/utilities/mesh/conversion/fluent3DMeshToFoam/fluent3DMeshToFoam.L
++++ applications/utilities/mesh/conversion/fluent3DMeshToFoam/fluent3DMeshToFoam.L
+@@ -123,11 +123,11 @@
+ // Dummy yywrap to keep yylex happy at compile time.
+ // It is called by yylex but is not used as the mechanism to change file.
+ // See <<EOF>>
+-#if YY_FLEX_SUBMINOR_VERSION < 34
+-extern "C" int yywrap()
+-#else
++//#if YY_FLEX_SUBMINOR_VERSION < 34
++//extern "C" int yywrap()
++//#else
+ int yyFlexLexer::yywrap()
+-#endif
++//#endif
+ {
+     return 1;
+ }
+--- ../temp/OpenFOAM-2.3.0/applications/utilities/mesh/conversion/fluentMeshToFoam/fluentMeshToFoam.L
++++ applications/utilities/mesh/conversion/fluentMeshToFoam/fluentMeshToFoam.L
+@@ -100,11 +100,11 @@
+ // Dummy yywrap to keep yylex happy at compile time.
+ // It is called by yylex but is not used as the mechanism to change file.
+ // See <<EOF>>
+-#if YY_FLEX_SUBMINOR_VERSION < 34
+-extern "C" int yywrap()
+-#else
++//#if YY_FLEX_SUBMINOR_VERSION < 34
++//extern "C" int yywrap()
++//#else
+ int yyFlexLexer::yywrap()
+-#endif
++//#endif
+ {
+     return 1;
+ }
+--- ../temp/OpenFOAM-2.3.0/applications/utilities/mesh/conversion/gambitToFoam/gambitToFoam.L
++++ applications/utilities/mesh/conversion/gambitToFoam/gambitToFoam.L
+@@ -80,11 +80,11 @@
+ // Dummy yywrap to keep yylex happy at compile time.
+ // It is called by yylex but is not used as the mechanism to change file.
+ // See <<EOF>>
+-#if YY_FLEX_SUBMINOR_VERSION < 34
+-extern "C" int yywrap()
+-#else
++//#if YY_FLEX_SUBMINOR_VERSION < 34
++//extern "C" int yywrap()
++//#else
+ int yyFlexLexer::yywrap()
+-#endif
++//#endif
+ {
+     return 1;
+ }
+--- ../temp/OpenFOAM-2.3.0/etc/bashrc
++++ etc/bashrc
+@@ -81,7 +81,7 @@
+ #- MPI implementation:
+ #    WM_MPLIB = SYSTEMOPENMPI | OPENMPI | MPICH | MPICH-GM | HPMPI
+ #               | GAMMA | MPI | QSMPI | SGIMPI
+-export WM_MPLIB=OPENMPI
++export WM_MPLIB=SYSTEMOPENMPI
+ 
+ #- Operating System:
+ #    WM_OSTYPE = POSIX | ???
+--- ../temp/OpenFOAM-2.3.0/src/conversion/ensight/part/ensightPart.H
++++ src/conversion/ensight/part/ensightPart.H
+@@ -62,6 +62,15 @@
+         // Static data members
+         static const List<word> elemTypes_;
+ 
++        // wrapper for isnan, namely C99 or C++11
++        inline bool isnan(const scalar value) const
++        {
++        #ifndef isnan
++            return std::isnan(value);
++        #else
++            return ::isnan(value);
++        #endif
++        }
+ 
+ protected:
+ 
+--- ../temp/OpenFOAM-2.3.0/src/surfMesh/surfaceFormats/stl/STLsurfaceFormatASCII.L
++++ src/surfMesh/surfaceFormats/stl/STLsurfaceFormatASCII.L
+@@ -50,11 +50,11 @@
+ // It is called by yylex but is not used as the mechanism to change file.
+ // See <<EOF>>
+ //! \cond dummy
+-#if YY_FLEX_SUBMINOR_VERSION < 34
+-extern "C" int yywrap()
+-#else
++//#if YY_FLEX_SUBMINOR_VERSION < 34
++//extern "C" int yywrap()
++//#else
+ int yyFlexLexer::yywrap()
+-#endif
++//#endif
+ {
+     return 1;
+ }
+--- ../temp/OpenFOAM-2.3.0/src/thermophysicalModels/reactionThermo/chemistryReaders/chemkinReader/chemkinLexer.L
++++ src/thermophysicalModels/reactionThermo/chemistryReaders/chemkinReader/chemkinLexer.L
+@@ -54,11 +54,11 @@
+ // It is called by yylex but is not used as the mechanism to change file.
+ // See <<EOF>>
+ //! \cond dummy
+-#if YY_FLEX_SUBMINOR_VERSION < 34
+-extern "C" int yywrap()
+-#else
++//#if YY_FLEX_SUBMINOR_VERSION < 34
++//extern "C" int yywrap()
++//#else
+ int yyFlexLexer::yywrap()
+-#endif
++//#endif
+ {
+     return 1;
+ }
+--- ../temp/OpenFOAM-2.3.0/src/triSurface/triSurface/interfaces/STL/readSTLASCII.L
++++ src/triSurface/triSurface/interfaces/STL/readSTLASCII.L
+@@ -55,11 +55,11 @@
+ // It is called by yylex but is not used as the mechanism to change file.
+ // See <<EOF>>
+ //! \cond dummy
+-#if YY_FLEX_SUBMINOR_VERSION < 34
+-extern "C" int yywrap()
+-#else
++//#if YY_FLEX_SUBMINOR_VERSION < 34
++//extern "C" int yywrap()
++//#else
+ int yyFlexLexer::yywrap()
+-#endif
++//#endif
+ {
+     return 1;
+ }
+
